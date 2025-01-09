@@ -13,4 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+model Slot {
+  id         String   @id @default(uuid()) @db.Uuid
+  time       DateTime @unique @db.Timestamp
+  isReserved Boolean  @default(false)
+  cost       Float    @default(0)
+}

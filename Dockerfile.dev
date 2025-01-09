@@ -1,20 +1,22 @@
 # Use the official Node.js image
 FROM node:20
 
+# Install pnpm globally
+RUN npm install -g pnpm
+
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy package.json and pnpm-lock.yaml
+COPY package.json pnpm-lock.yaml ./
 
-# Install dependencies
-RUN npm install
+# Install dependencies using pnpm
+RUN pnpm install
 
 # Copy the entire application to the container
 COPY . .
 
-
 EXPOSE 5000
 
 # Run the application in watch mode for development
-CMD ["npm", "run", "start:dev"]
+CMD ["pnpm", "run", "start:dev"]
